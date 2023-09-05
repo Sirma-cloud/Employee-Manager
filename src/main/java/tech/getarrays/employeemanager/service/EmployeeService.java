@@ -13,20 +13,20 @@ import java.util.UUID;
 @Service
 @Transactional
 public class EmployeeService {
-    private  final EmployeeRepo employeeRepo;
+    private final EmployeeRepo employeeRepo;
 
     @Autowired
     public EmployeeService(EmployeeRepo employeeRepo) {
         this.employeeRepo = employeeRepo;
     }
 
-    public  Employee addEmployee(Employee employee){
+    public Employee addEmployee(Employee employee) {
         employee.setEmployeeCode(UUID.randomUUID().toString());
-        return  employeeRepo.save(employee);
+        return employeeRepo.save(employee);
     }
 
     public List<Employee> findAllEmployees() {
-        return  employeeRepo.findAll();
+        return employeeRepo.findAll();
     }
 
     public Employee findEmployeeById(Long id) {
@@ -34,7 +34,11 @@ public class EmployeeService {
                 .orElseThrow(() -> new UserNotFoundException("user by id" + id + " was not found"));
     }
 
-    public void deleteEmployee(Long id){
+    public void deleteEmployee(Long id) {
         employeeRepo.deleteEmployeeById(id);
+    }
+
+    public void deleteAllEmployees() {
+        employeeRepo.deleteAll();
     }
 }
